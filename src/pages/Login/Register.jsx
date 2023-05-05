@@ -29,6 +29,7 @@ const Register = () => {
                 .catch((error) => {
                         setError(error.message)
             });
+            form.reset();
            })
            .catch(error => {
                 setError(error.message)
