@@ -34,7 +34,7 @@ const Login = () => {
         })
     }
 
-    const handleGoogleSignIn = () => {
+    const handleGithubSignIn = () => {
         gitHubSignIn()
         .then(result => {
             const loggedInUser = result.user;
@@ -47,7 +47,7 @@ const Login = () => {
         })
     };
 
-    const handleGithubSignIn = () => {
+    const handleGoogleSignIn = () => {
         googleSignIn()
         .then(result => {
             const loggedInUser = result.user;
