@@ -5,7 +5,7 @@ import { AuthContext } from '../../providers/AuthProvider';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
-    const {signIn} = useContext(AuthContext);
+    const {signIn, googleSignIn, gitHubSignIn} = useContext(AuthContext);
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
 
@@ -22,22 +22,48 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
 
+
         signIn(email, password)
         .then(result => {
             const loggedInUser = result.user;
-            setSuccess("Logged In Successfully")
+            setSuccess("Successfully logged in")
             navigate(from, {replace: true})
         })
         .catch(error => {
                 setError(error.message)
-                console.log(error.message)
         })
     }
 
+    const handleGoogleSignIn = () => {
+        gitHubSignIn()
+        .then(result => {
+            const loggedInUser = result.user;
+            setSuccess("You successfully Logged In")
+            navigate(from, {replace: true})
+
+        })
+        .catch(error => {
+            setError(error.message)
+        })
+    };
+
+    const handleGithubSignIn = () => {
+        googleSignIn()
+        .then(result => {
+            const loggedInUser = result.user;
+            setSuccess("You successfully Logged In")
+            navigate(from, {replace: true})
+
+        })
+        .catch(error => {
+            setError(error.message)
+        })
+    };
+
 
     return (
-        <Container className='my-5 d-flex jusify-content-center'>
-            <div style={{width: "400px"}} className='mx-auto shadow p-4 bg-white rounded'>
+        <Container className='mx-auto my-5 d-flex justify-content-center'>
+            <div style={{width: "400px"}} className='mx-2 shadow p-5 bg-white rounded'>
             <h3>Please Login</h3>
             <Form onSubmit={handleLogin}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -50,7 +76,7 @@ const Login = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control name='password' type="password" placeholder="Password" required />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button className='mb-4' variant="primary" type="submit">
                     Login
                 </Button>
                 <Form.Text className="text-success">
@@ -64,9 +90,9 @@ const Login = () => {
                 </Form.Text>
             </Form>
             </div>
-            <div style={{width: "400px"}} className='mx-auto shadow p-4  bg-white rounded d-block'>
-                <Button variant='dark' className='d-block mb-2'><FaGithub className='me-2'></FaGithub> Login with GitHub</Button>
-                <Button variant='gray border' className='d-block' ><FaGoogle className='me-2'></FaGoogle> Login with Google</Button>
+            <div style={{width: "400px"}} className='mx-2 shadow my-auto p-5 bg-white rounded d-block'>
+                <Button onClick={handleGithubSignIn} variant='dark' className='d-block mb-2'><FaGithub className='me-2'></FaGithub> Login with GitHub</Button>
+                <Button onClick={handleGoogleSignIn} variant='gray border' className='d-block' ><FaGoogle className='me-2'></FaGoogle> Login with Google</Button>
             </div>
             
         </Container>
