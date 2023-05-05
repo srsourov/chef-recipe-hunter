@@ -27,7 +27,13 @@ const Header = () => {
                 </Nav>
                 <Nav>
                 <img style={{width: "30px", height: "30px"}} src="../../../../public/vite.svg" alt="" />
-                <Link className='mx-2 text-white text-decoration-none' to="/login">Login</Link>
+                <NavLink
+                to="/login"
+                className={({ isActive, isPending }) =>
+                    isPending ? "mx-2 text-white text-decoration-none" : isActive ? "mx-2 text-success text-decoration-none" : "text-decoration-none text-white mx-2"
+                }
+                > Login
+                </NavLink>
                 </Nav>
             </Navbar.Collapse>
         </Container>
