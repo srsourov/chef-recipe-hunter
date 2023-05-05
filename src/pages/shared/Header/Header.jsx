@@ -2,9 +2,12 @@ import React, { useContext } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../providers/AuthProvider';
-import { FaUserCircle } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Header = () => {
+
+    
 
     const {user, logOut} = useContext(AuthContext);
         console.log(user)
@@ -13,6 +16,9 @@ const Header = () => {
         .then()
         .catch(error => console.log(error.message))
     }
+
+    const notify = () => toast(`Name: ${user.displayName}`)
+
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
@@ -36,7 +42,10 @@ const Header = () => {
                 </NavLink>
                 </Nav>
                 <Nav>
-                    {user && <img style={{width: "40px", height: "40px", borderRadius: "50%"}} src={user.photoURL} alt="" />}
+                    {user && <img onMouseEnter={notify} style={{width: "40px", height: "40px", borderRadius: "50%"}} src={user.photoURL} alt="" />
+                    }
+                    
+                    <ToastContainer></ToastContainer>
                     
                     {user ? <Button onClick={handleLogOut} variant="dark">Logout</Button> : 
                             <NavLink
